@@ -1,6 +1,6 @@
 "use client"
 
-import { useMoneyMap } from "@/context/money-map-context"
+import { useMoneyMap } from "@/Schema/schema"
 import { Card } from "@/components/ui/card"
 import IncomeExpenseChart from "./charts/income-expense-chart"
 import CategoryBreakdown from "./charts/category-breakdown"
