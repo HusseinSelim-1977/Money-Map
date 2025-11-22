@@ -1,7 +1,7 @@
 "use client"
 
-import type React from "react"
-import { createContext, useContext, useState, useEffect } from "react"
+import type { ReactNode } from "react"
+import { createContext, useContext, useState, useEffect, createElement } from "react"
 
 export interface Bill {
   id: string
@@ -79,16 +79,17 @@ interface MoneyMapContextType {
   changeCurrency: (currency: string) => void
 }
 
-const MoneyMapContext = createContext<MoneyMapContextType | undefined>(undefined)
+const MoneyMapContext = createContext<MoneyMapContextType | undefined>(undefined) as React.Context<MoneyMapContextType | undefined>
 
 const DEFAULT_INVESTMENT_CATEGORIES: InvestmentCategory[] = [
   { id: "1", name: "Stocks", percentage: 40, description: "Equity investments" },
   { id: "2", name: "Bonds", percentage: 30, description: "Fixed income securities" },
   { id: "3", name: "Real Estate", percentage: 20, description: "Property investments" },
   { id: "4", name: "Crypto", percentage: 10, description: "Digital assets" },
+  { id: "5", name: "Other", percentage: 0, description: "Custom investment category" }
 ]
 
-export function MoneyMapProvider({ children }: { children: React.ReactNode }) {
+export function MoneyMapProvider({ children }: { children: ReactNode }) {
   const [userData, setUserData] = useState<UserData>({
     userId: "user-1",
     profile: {
@@ -124,7 +125,7 @@ export function MoneyMapProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(false)
   }, [])
 
-  // Save to localStorage whenever userData changes
+
   useEffect(() => {
     localStorage.setItem("moneymap-data", JSON.stringify(userData))
   }, [userData])
@@ -341,9 +342,10 @@ export function MoneyMapProvider({ children }: { children: React.ReactNode }) {
     updateProfile({ currency })
   }
 
-  return (
-    <MoneyMapContext.Provider
-      value={{
+  return createElement(
+    MoneyMapContext.Provider,
+    {
+      value: {
         userData,
         isLoading,
         isLoggedIn,
@@ -365,10 +367,9 @@ export function MoneyMapProvider({ children }: { children: React.ReactNode }) {
         signup,
         logout,
         changeCurrency,
-      }}
-    >
-      {children}
-    </MoneyMapContext.Provider>
+      },
+    },
+    children
   )
 }
 
