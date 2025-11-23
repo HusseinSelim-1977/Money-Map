@@ -16,6 +16,10 @@ export class UserService {
     return newUser.save();
   }
 
+  async findAll(): Promise<User[]> {
+    return this.userModel.find();
+  }
+
   async getUser(id: string): Promise<User | null> {
     return this.userModel.findById(id);
   }
@@ -24,10 +28,22 @@ export class UserService {
     return this.userModel.findByIdAndUpdate(id, updates, { new: true });
   }
 
+  async remove(id: string): Promise<User | null> {
+    return this.userModel.findByIdAndDelete(id);
+  }
+
   async addBill(userId: string, bill: Bill): Promise<User | null> {
     return this.userModel.findByIdAndUpdate(
       userId,
-      { $push: { bills: bill } },
+      { $push: { bill: bill } },
+      { new: true }
+    );
+  }
+
+  async updateBill(userId: string, billId: string, updates: Partial<Bill>): Promise<User | null> {
+    return this.userModel.findOneAndUpdate(
+      { _id: userId, 'bill.id': billId },
+      { $set: { 'bill.$': { ...updates, id: billId } } },
       { new: true }
     );
   }
@@ -35,7 +51,15 @@ export class UserService {
   async addInvestment(userId: string, investment: Investment): Promise<User | null> {
     return this.userModel.findByIdAndUpdate(
       userId,
-      { $push: { investments: investment } },
+      { $push: { investment: investment } },
+      { new: true }
+    );
+  }
+
+  async updateInvestment(userId: string, investmentId: string, updates: Partial<Investment>): Promise<User | null> {
+    return this.userModel.findOneAndUpdate(
+      { _id: userId, 'investment.id': investmentId },
+      { $set: { 'investment.$': { ...updates, id: investmentId } } },
       { new: true }
     );
   }
@@ -43,7 +67,15 @@ export class UserService {
   async addSpending(userId: string, spending: Spending): Promise<User | null> {
     return this.userModel.findByIdAndUpdate(
       userId,
-      { $push: { spendings: spending } },
+      { $push: { spending: spending } },
+      { new: true }
+    );
+  }
+
+  async updateSpending(userId: string, spendingId: string, updates: Partial<Spending>): Promise<User | null> {
+    return this.userModel.findOneAndUpdate(
+      { _id: userId, 'spending.id': spendingId },
+      { $set: { 'spending.$': { ...updates, id: spendingId } } },
       { new: true }
     );
   }
