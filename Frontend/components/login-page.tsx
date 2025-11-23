@@ -2,9 +2,9 @@
 
 import type React from "react"
 import { useState } from "react"
-import { useMoneyMap } from "@/Schema/money-map-context"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import { useMoneyMap } from "../../Schema/MoneyMapContext"
+import { Button } from "../components/ui/button"
+import { Card } from "../components/ui/card"
 
 export default function LoginPage() {
   const { login, signup } = useMoneyMap()

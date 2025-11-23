@@ -3,9 +3,9 @@
 import type React from "react"
 
 import { useState } from "react"
-import { useMoneyMap } from "@/context/money-map-context"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import { useMoneyMap } from "../../Schema/MoneyMapContext"
+import { Button } from "../components/ui/button"
+import { Card } from "../components/ui/card"
 import { DollarSign } from "lucide-react"
 
 export default function SalarySection() {
