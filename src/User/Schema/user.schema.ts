@@ -93,3 +93,5 @@ export class User{
     spending: Spending[];
 
 }
+
+export const UserSchema = SchemaFactory.createForClass(User);
