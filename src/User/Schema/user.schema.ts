@@ -59,8 +59,16 @@ export class User{
 }})
     email: string;
 
-    @Prop({min: 8})
-    password: string;
+@Prop({ 
+    required: true,
+    validate: {
+        validator: function(pass: string) {
+            return pass.length >= 8;
+        },
+        message: 'Password must be at least 8 characters'
+    }
+})
+password: string;
 
     @Prop({validate: {
         validator: function(url: string){
