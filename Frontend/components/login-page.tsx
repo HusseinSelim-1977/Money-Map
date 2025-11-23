@@ -1,23 +1,10 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
-import { useMoneyMap } from "@/context/money-map-context"
+import { useMoneyMap } from "@/Schema/money-map-context"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { UnchainedBackground } from "./unchained-background"
-
-const CURRENCIES = [
-  { code: "USD", symbol: "$", name: "US Dollar" },
-  { code: "EUR", symbol: "€", name: "Euro" },
-  { code: "GBP", symbol: "£", name: "British Pound" },
-  { code: "INR", symbol: "₹", name: "Indian Rupee" },
-  { code: "JPY", symbol: "¥", name: "Japanese Yen" },
-  { code: "AUD", symbol: "A$", name: "Australian Dollar" },
-  { code: "CAD", symbol: "C$", name: "Canadian Dollar" },
-  { code: "CHF", symbol: "CHF", name: "Swiss Franc" },
-]
 
 export default function LoginPage() {
   const { login, signup } = useMoneyMap()
@@ -28,6 +15,17 @@ export default function LoginPage() {
   const [lastName, setLastName] = useState("")
   const [currency, setCurrency] = useState("USD")
   const [error, setError] = useState("")
+
+  const CURRENCIES = [
+    { code: "USD", symbol: "$", name: "US Dollar" },
+    { code: "EUR", symbol: "€", name: "Euro" },
+    { code: "GBP", symbol: "£", name: "British Pound" },
+    { code: "INR", symbol: "₹", name: "Indian Rupee" },
+    { code: "JPY", symbol: "¥", name: "Japanese Yen" },
+    { code: "AUD", symbol: "A$", name: "Australian Dollar" },
+    { code: "CAD", symbol: "C$", name: "Canadian Dollar" },
+    { code: "CHF", symbol: "CHF", name: "Swiss Franc" },
+  ]
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
@@ -46,15 +44,24 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-4 relative overflow-hidden">
-      <div className="fixed inset-0 pointer-events-none">
-        <UnchainedBackground />
-      </div>
+    <div className="min-h-screen bg-[#0f0f1a] flex items-center justify-center p-4 relative overflow-hidden">
 
-      <div className="fixed inset-0 bg-black/30 pointer-events-none" />
+      <div className="absolute -top-32 -left-32 w-[350px] h-[350px] bg-green-400 rounded-full opacity-80 blur-[70px] animate-pulse-slow" />
+      <div className="absolute -bottom-32 -right-32 w-[350px] h-[350px] bg-fuchsia-500 rounded-full opacity-80 blur-[70px] animate-pulse-slow" />
+
+      <style>{`
+        @keyframes pulse-slow {
+          0% { transform: scale(1) translate(0,0); }
+          50% { transform: scale(1.15) translate(15px, -10px); }
+          100% { transform: scale(1) translate(0,0); }
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 7s ease-in-out infinite;
+        }
+      `}</style>
 
       <div className="relative z-10">
-        <Card className="w-full max-w-md p-8 bg-black/40 backdrop-blur-3xl border border-white/10 shadow-2xl hover:shadow-purple-500/20 transition-all duration-500">
+        <Card className="w-full max-w-md p-8 bg-black/40 backdrop-blur-3xl border border-white/10 shadow-2xl transition-all duration-500">
           <div className="text-center mb-8">
             <div className="relative inline-block mb-4">
               <h1
@@ -88,8 +95,7 @@ export default function LoginPage() {
                       type="text"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
-                      placeholder="John"
-                      className="w-full px-3 py-2 border border-white/10 rounded-lg bg-white/5 text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all backdrop-blur-sm"
+                      className="w-full px-3 py-2 border border-white/10 rounded-lg bg-white/5 text-white focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all backdrop-blur-sm"
                       required
                     />
                   </div>
@@ -101,8 +107,7 @@ export default function LoginPage() {
                       type="text"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
-                      placeholder="Doe"
-                      className="w-full px-3 py-2 border border-white/10 rounded-lg bg-white/5 text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all backdrop-blur-sm"
+                      className="w-full px-3 py-2 border border-white/10 rounded-lg bg-white/5 text-white focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all backdrop-blur-sm"
                       required
                     />
                   </div>
@@ -133,29 +138,25 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                className="w-full px-3 py-2 border border-white/10 rounded-lg bg-white/5 text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all backdrop-blur-sm"
+                className="w-full px-3 py-2 border border-white/10 rounded-lg bg-white/5 text-white focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all backdrop-blur-sm"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-white/70 mb-2 uppercase tracking-wider">
-                Password
-              </label>
+              <label className="block text-xs font-semibold text-white/70 mb-2 uppercase tracking-wider">Password</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full px-3 py-2 border border-white/10 rounded-lg bg-white/5 text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all backdrop-blur-sm"
+                className="w-full px-3 py-2 border border-white/10 rounded-lg bg-white/5 text-white focus:outline-none focus:border-purple-500/50 focus:bg-white/10 transition-all backdrop-blur-sm"
                 required
               />
             </div>
 
             <Button
               type="submit"
-              className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold py-2 rounded-lg transition-all duration-300 transform hover:scale-105 uppercase tracking-wider shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50"
+              className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold py-2 rounded-lg transition-all duration-300 transform hover:scale-105 uppercase tracking-wider"
             >
               {isSignUp ? "Create Account" : "Enter"}
             </Button>
