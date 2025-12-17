@@ -1,22 +1,32 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import request from 'supertest';
-import { App } from 'supertest/types';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './../src/app.module';
 
-describe('AppController (e2e)', () => {
-  let app: INestApplication<App>;
+// Choose one of these import styles:
+import request from 'supertest'; // If esModuleInterop is true
+// OR
 
-  beforeEach(async () => {
+
+describe('AppController (e2e)', () => {
+  let app: INestApplication;
+
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    app.useGlobalPipes(new ValidationPipe());
     await app.init();
   });
 
+  afterAll(async () => {
+    await app.close();
+  });
+
   it('/ (GET)', () => {
+    // If using import * as request, you might need:
+    // return (request as any)(app.getHttpServer())
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
