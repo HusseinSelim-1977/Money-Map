@@ -1,53 +1,35 @@
 {
   "compilerOptions": {
-<<<<<<< HEAD
-    "module": "commonjs",
-=======
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "resolvePackageJsonExports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
->>>>>>> BACKEND
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-<<<<<<< HEAD
-    "target": "ES2020",
-=======
     "target": "ES2023",
->>>>>>> BACKEND
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-<<<<<<< HEAD
-    "strictNullChecks": false,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "esModuleInterop": true,
     "allowJs": false
   },
   "include": [
-    "**/*"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
     "dist",
     "**/*.spec.ts",
     "**/*.test.ts"
-  ]}
-=======
-    "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
-  }
+  ]
 }
->>>>>>> BACKEND
