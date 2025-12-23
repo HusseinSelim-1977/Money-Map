@@ -1,9 +1,10 @@
 import { IsString, IsNotEmpty, MinLength } from 'class-validator';
 
 export class ForgotPasswordDto {
+
   @IsString()
   @IsNotEmpty()
-  userId: string;
+  email: string;
 
   @IsString()
   @IsNotEmpty()

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Patch, Param } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { SignUpDto } from './dto/signup.dto';
@@ -20,16 +20,17 @@ export class AuthController {
   }
 
   @Post('logout')
-  logout(@Body() logoutDto: LogoutDto) {
-    return this.authService.logout(logoutDto);
+  logout(@Body() body: { userId: string }) {
+    return this.authService.logout({ userId: body.userId });
   }
 
   @Patch('forgot-password')
   forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
     return this.authService.forgotPassword(forgotPasswordDto);
-}
+  }
 
-  @Get(':email')
+  @Get('profile/:email')
   findByEmail(@Param('email') email: string) {
     return this.authService.findByEmail(email);
-  }}
+  }
+}

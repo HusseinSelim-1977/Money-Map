@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
-import { useMoneyMap } from "../../Schema/MoneyMapContext"
+import { useMoneyMap } from "../../Backend/Schema/MoneyMapContext"
 import { Button } from "../components/ui/button"
 import { Card } from "../components/ui/card"
 
