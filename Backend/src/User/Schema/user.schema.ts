@@ -37,7 +37,7 @@ export interface InvestmentCategory {
 
 @Schema()
 export class User{
-  
+
     @Prop({
         required: true,
         unique: true,
@@ -115,7 +115,7 @@ export class User{
 
 export const UserSchema = SchemaFactory.createForClass(User);
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function(next: Function) {
     this.updatedAt = new Date();
     next();
 });
