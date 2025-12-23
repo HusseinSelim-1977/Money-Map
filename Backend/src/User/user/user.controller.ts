@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -66,5 +66,30 @@ export class UserController {
   @Get(':id/totals')
   getTotals(@Param('id') userId: string) {
     return this.userService.getTotals(userId);
+  }
+
+  @Get(':id/dashboard')
+  getDashboardData(@Param('id') userId: string, @Query('month') month?: string) {
+    return this.userService.getDashboardData(userId, month);
+  }
+
+  @Get(':id/monthly-financial')
+  getMonthlyFinancialData(@Param('id') userId: string, @Query('month') month?: string) {
+    return this.userService.getMonthlyFinancialData(userId, month);
+  }
+
+  @Get(':id/leftover')
+  getLeftoverAfterBills(@Param('id') userId: string) {
+    return this.userService.getLeftoverAfterBills(userId);
+  }
+
+  @Get(':id/investment-categories')
+  getInvestmentCategories(@Param('id') userId: string) {
+    return this.userService.getInvestmentCategories(userId);
+  }
+
+  @Get(':id/profile')
+  getUserProfile(@Param('id') userId: string) {
+    return this.userService.getUserProfile(userId);
   }
 }

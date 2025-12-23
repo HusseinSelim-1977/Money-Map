@@ -10,6 +10,7 @@ export interface Bill {
   amountNeeded: number
   amountDeposited: number
   dueDate: string
+  category: string
 }
 
 export interface Investment {
@@ -23,6 +24,8 @@ export interface Spending {
   id: string
   title: string
   amountDeposited: number
+  category: string
+  date: string
 }
 
 export interface InvestmentCategory {
@@ -34,7 +37,7 @@ export interface InvestmentCategory {
 
 @Schema()
 export class User{
-
+  
     @Prop({
         required: true,
         unique: true,
@@ -56,19 +59,19 @@ export class User{
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         },
         message: "Please Enter A Valid Email"
-}})
+    }})
     email: string;
 
-@Prop({ 
-    required: true,
-    validate: {
-        validator: function(pass: string) {
-            return pass.length >= 8;
-        },
-        message: 'Password must be at least 8 characters'
-    }
-})
-password: string;
+    @Prop({ 
+        required: true,
+        validate: {
+            validator: function(pass: string) {
+                return pass.length >= 8;
+            },
+            message: 'Password must be at least 8 characters'
+        }
+    })
+    password: string;
 
     @Prop({validate: {
         validator: function(url: string){
@@ -82,7 +85,7 @@ password: string;
       },
       message: 'Profile picture must be a valid image URL (jpg, jpeg, png, gif, webp, svg)'
         }
-})
+    })
     prof_pic: string;
 
     @Prop({default: 'USD'})
@@ -100,6 +103,19 @@ password: string;
     @Prop({type: [Object], default: []})
     spending: Spending[];
 
+    @Prop({type: [Object], default: []})
+    investmentCategories: InvestmentCategory[];
+
+    @Prop({type: Date, default: Date.now})
+    createdAt: Date;
+
+    @Prop({type: Date, default: Date.now})
+    updatedAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.pre('save', function(next) {
+    this.updatedAt = new Date();
+    next();
+});

@@ -5,6 +5,13 @@ import { User, UserDocument, Bill, Investment, Spending } from '../Schema/user.s
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+export interface MonthlyFinancialData {
+  month: string;
+  income: number;
+  expenses: number;
+  byCategory: Record<string, number>;
+}
+
 @Injectable()
 export class UserService {
   constructor(
@@ -80,6 +87,72 @@ export class UserService {
     );
   }
 
+  async getMonthlyFinancialData(userId: string, month?: string): Promise<MonthlyFinancialData> {
+    const user = await this.getUser(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const income = user.salary || 0;
+    
+    const billsExpenses = user.bill.reduce((sum, bill) => sum + bill.amountDeposited, 0);
+    const spendingExpenses = user.spending.reduce((sum, spend) => sum + spend.amountDeposited, 0);
+    const expenses = billsExpenses + spendingExpenses;
+    
+    const byCategory = this.categorizeExpenses(user);
+    
+    const currentMonth = month || new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+    
+    return {
+      month: currentMonth,
+      income,
+      expenses,
+      byCategory
+    };
+  }
+
+  async getLeftoverAfterBills(userId: string): Promise<number> {
+    const user = await this.getUser(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const income = user.salary || 0;
+    const billsTotal = user.bill.reduce((sum, bill) => sum + bill.amountDeposited, 0);
+    
+    return income - billsTotal;
+  }
+
+  async getDashboardData(userId: string, month?: string) {
+    const [monthlyData, leftover] = await Promise.all([
+      this.getMonthlyFinancialData(userId, month),
+      this.getLeftoverAfterBills(userId)
+    ]);
+
+    return {
+      month: monthlyData.month,
+      monthlyData,
+      leftover
+    };
+  }
+
+  private categorizeExpenses(user: User): Record<string, number> {
+    const categories: Record<string, number> = {
+      'Bills': 0,
+      'Investments': 0,
+      'Spending': 0,
+      'Other': 0
+    };
+
+    categories['Bills'] = user.bill.reduce((sum, bill) => sum + bill.amountDeposited, 0);
+    categories['Investments'] = user.investment.reduce((sum, inv) => sum + inv.amountDeposited, 0);
+    categories['Spending'] = user.spending.reduce((sum, spend) => sum + spend.amountDeposited, 0);
+
+    return Object.fromEntries(
+      Object.entries(categories).filter(([_, amount]) => amount > 0)
+    );
+  }
+
   async getTotals(userId: string) {
     const user = await this.getUser(userId);
     if (!user) {
@@ -92,4 +165,33 @@ export class UserService {
     
     return { billsTotal, investmentsTotal, spendingTotal };
   }
-}
+
+  async getInvestmentCategories(userId: string) {
+    const user = await this.getUser(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    return user.investment.map(inv => ({
+      id: inv.id,
+      name: inv.title,
+      percentage: (inv.amountDeposited / inv.amountNeeded) * 100 || 0,
+      description: `Investment in ${inv.title}`
+    }));
+  }
+
+    async getUserProfile(userId: string) {
+      const user = await this.getUser(userId);
+      if (!user) {
+        throw new Error('User not found');
+      }
+  
+      return {
+        currency: user.currency || 'USD',
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        prof_pic: user.prof_pic
+      };
+    }
+  }
