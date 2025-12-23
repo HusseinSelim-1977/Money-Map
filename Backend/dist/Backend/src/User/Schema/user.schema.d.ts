@@ -44,12 +44,83 @@ export declare class User {
     createdAt: Date;
     updatedAt: Date;
 }
-export declare const UserSchema: mongoose.Schema<User, mongoose.Model<User, any, any, any, Document<unknown, any, User, any, {}> & User & {
+export declare const UserSchema: mongoose.Schema<User, mongoose.Model<User, any, any, any, Document<unknown, any, User, any, mongoose.DefaultSchemaOptions> & User & {
     _id: mongoose.Types.ObjectId;
 } & {
     __v: number;
-}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, User, Document<unknown, {}, mongoose.FlatRecord<User>, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & mongoose.FlatRecord<User> & {
+}, any, User>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
     _id: mongoose.Types.ObjectId;
 } & {
     __v: number;
-}>;
+}, {
+    id?: mongoose.SchemaDefinitionProperty<string, User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    firstName?: mongoose.SchemaDefinitionProperty<string, User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    lastName?: mongoose.SchemaDefinitionProperty<string, User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    email?: mongoose.SchemaDefinitionProperty<string, User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    password?: mongoose.SchemaDefinitionProperty<string, User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    prof_pic?: mongoose.SchemaDefinitionProperty<string, User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    currency?: mongoose.SchemaDefinitionProperty<string, User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    salary?: mongoose.SchemaDefinitionProperty<number, User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    bill?: mongoose.SchemaDefinitionProperty<Bill[], User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    investment?: mongoose.SchemaDefinitionProperty<Investment[], User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    spending?: mongoose.SchemaDefinitionProperty<Spending[], User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    investmentCategories?: mongoose.SchemaDefinitionProperty<InvestmentCategory[], User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    createdAt?: mongoose.SchemaDefinitionProperty<Date, User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    updatedAt?: mongoose.SchemaDefinitionProperty<Date, User, Document<unknown, {}, User, {}, mongoose.ResolveSchemaOptions<mongoose.DefaultSchemaOptions>> & User & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+}, User>;

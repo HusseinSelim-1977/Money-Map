@@ -13,7 +13,7 @@ export declare class AuthService {
         message: string;
         token: string;
         user: {
-            id: any;
+            id: string;
             firstName: string;
             lastName: string;
             email: string;
@@ -26,7 +26,7 @@ export declare class AuthService {
         message: string;
         token: string;
         user: {
-            id: any;
+            id: string;
             firstName: string;
             lastName: string;
             email: string;
@@ -43,7 +43,7 @@ export declare class AuthService {
     }>;
     validateUser(email: string, password: string): Promise<any>;
     findByEmail(email: string): Promise<{
-        id: any;
+        id: string;
         firstName: string;
         lastName: string;
         email: string;

@@ -9,7 +9,7 @@ export declare class AuthController {
         message: string;
         token: string;
         user: {
-            id: any;
+            id: string;
             firstName: string;
             lastName: string;
             email: string;
@@ -22,7 +22,7 @@ export declare class AuthController {
         message: string;
         token: string;
         user: {
-            id: any;
+            id: string;
             firstName: string;
             lastName: string;
             email: string;
@@ -40,7 +40,7 @@ export declare class AuthController {
         message: string;
     }>;
     findByEmail(email: string): Promise<{
-        id: any;
+        id: string;
         firstName: string;
         lastName: string;
         email: string;
